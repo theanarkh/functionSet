@@ -143,6 +143,48 @@
     return result;
   }
   */
+  function curring(fn){
+
+var  argList=Array.prototype.slice.call(arguments,1);
+
+return function(){
+
+if(arguments.length==0){
+fn(argList);
+//fn.apply({},argList)//fn(argList)也可以，但传入的函数需要有一个参数接受argList变量
+
+}
+
+else{
+
+argList=argList.concat([].slice.call(arguments));
+
+return arguments.callee
+
+}
+}
+}
+/*
+用法:
+ZYM.curring(function(a){
+        //var a=arguments;
+        var sum=0;
+        for(var i=0;i<a.length;i++){
+            sum=sum+a[i]
+        }
+        console.log(sum)
+    })(2)(3)()
+*/
+
+function uncurring() {
+    	return Function.prototype.call.bind(arguments[0])
+    }
+    /*
+    var push=ZYM.uncurring(Array.prototype.push);
+    var a={}
+    push(a,1,2,3)//Object {0: 1, 1: 2, 2: 3, length: 3}
+    console.log(a)
+    */
 	this.ZYM = {
 		now: now,
 		someday: someday,
@@ -157,7 +199,9 @@
 		splitWord:splitWord,
 		sort:sort,
 		cache:cache,
-		range:range
+		range:range,
+		curring:curring,
+		uncurring:uncurring
 	};
 
 
