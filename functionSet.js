@@ -117,6 +117,32 @@
 
 		})
 	}
+	
+	function range(start,stop,step){
+    !step && (step=1);
+    var result=[start];
+    while(start+step<stop){
+      start=start+step
+      result.push(start)
+
+    }
+    return result;
+  }
+  /*
+  var result=[]
+  function flat(arr){
+   
+    $(arr).each(function(index,value){
+      if(Object.prototype.toString.call(value)=="[object Array]"){
+        flat(value);
+      }
+      else{
+        result.push(value);
+      }
+    })
+    return result;
+  }
+  */
 	this.ZYM = {
 		now: now,
 		someday: someday,
@@ -130,7 +156,8 @@
 		transferChar:transferChar,
 		splitWord:splitWord,
 		sort:sort,
-		cache:cache
+		cache:cache,
+		range:range
 	};
 
 
