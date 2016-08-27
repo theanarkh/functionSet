@@ -176,7 +176,7 @@ ZYM.curring(function(a){
     })(2)(3)()
 */
 
-function uncurring() {
+    function uncurring() {
     	return Function.prototype.call.bind(arguments[0])
     }
     /*
@@ -185,6 +185,32 @@ function uncurring() {
     push(a,1,2,3)//Object {0: 1, 1: 2, 2: 3, length: 3}
     console.log(a)
     */
+    
+    function splitMultipleStr(argFun) {
+		var script ;
+		cache['script'] ? (script = cache['script']) : (script = cache['script'] = document.createElement('script'));
+		script.type = 'text/cyb';
+		script.text = argFun.toString().replace(/(\/\*|\*\/)/g,'').
+		replace(/function \(\)\{([\s\S]*?)\}/,'$1').replace(/^\s*/,'').replace(/\s*$/,'');
+		script.id = 'myScript';
+		document.body.appendChild(script);
+		var myDom = document.getElementById('myScript');
+		var result = splitWord(myDom.innerHTML);
+		return result;
+	}
+	/*
+	切分多行字面量形式的字符串
+	用法：ZYM.splitMultipleStr(function(){
+        /*
+        asas
+        scriptas
+	sas
+        asasas
+        asasasas
+        sa
+        */
+    })
+	*/
 	this.ZYM = {
 		now: now,
 		someday: someday,
@@ -201,7 +227,8 @@ function uncurring() {
 		cache:cache,
 		range:range,
 		curring:curring,
-		uncurring:uncurring
+		uncurring:uncurring,
+		splitMultipleStr:splitMultipleStr
 	};
 
 
